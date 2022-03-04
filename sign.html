@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    td {
+      padding: 5px;
+    }
+  </style>
+  <script>
+    globalThis.module = {};
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/7.7.0/polyfill.min.js"></script>
+  <script src="https://www.unpkg.com/events@3.3.0/events.js"></script>
+  <script src="build/elliptic.min.js"></script>
+  <script src="build/webcrypto-liner.shim.min.js"></script>
+</head>
+
+<body>
+  <a id="save_file" style="display: none"></a>
+  <table cellspacing="0" cellpadding="0">
+    <tr>
+      <td><label for="digest_mechanism">Digest mechanism:</td></label></td>
+      <td>
+        <select id="digest_mechanism">
+          <option value="SHA-1">SHA-1</option>
+          <option value="SHA-256" selected>SHA-256</option>
+          <option value="SHA-384">SHA-384</option>
+          <option value="SHA-512">SHA-512</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td><label for="named_curve">ECC named curve:</label></td>
+      <td>
+        <select id="named_curve">
+          <option value="P-256" selected>NIST-P256 (ECDSA)</option>
+          <option value="P-384">NIST-P384 (ECDSA)</option>
+          <option value="P-512">NIST-P521 (ECDSA)</option>
+          <option value="Ed25519">Ed25519 (EdDSA)</option>
+          <option value="Ed448">Ed448 (EdDSA)</option>
+          <option value="brainpoolP256r1">brainpoolP256r1 (ECDSA)</option>
+          <option value="brainpoolP384r1">brainpoolP384r1 (ECDSA)</option>
+          <option value="brainpoolP512r1">brainpoolP512r1 (ECDSA)</option>
+        </select>
+      </td>
+    </tr>
+  </table>
+  <input id="generate" type="button" value="Generate signed PDF">
+  <script type="module" src="build/sign.js"></script>
+</body>
+
+</html>

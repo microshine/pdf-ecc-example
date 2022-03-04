@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    td {
+      padding: 5px;
+    }
+    .group {
+      font-weight: bold;
+      background-color: lightgray;
+    }
+  </style>
+  <script>
+    globalThis.module = {};
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/7.7.0/polyfill.min.js"></script>
+  <script src="https://www.unpkg.com/events@3.3.0/events.js"></script>
+  <script src="build/elliptic.min.js"></script>
+  <script src="build/webcrypto-liner.shim.min.js"></script>
+</head>
+
+<body>
+  <div>
+    <label for="pdf_file">Select a PDF file:</label>
+    <input type="file" name="" id="pdf_file">
+  </div>
+  <div>
+    <input type="button" value="Verify" id="verify">
+  </div>
+
+  <table>
+    <tbody id="report"></tbody>
+  </table>
+
+  <script src="build/verify.js" type="module"></script>
+</body>
+
+</html>
