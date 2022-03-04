@@ -1,1 +1,0 @@
-# pdf-ecc-example
