@@ -20,7 +20,7 @@ async function generateChain(algorithm: EcKeyGenParams & EcdsaParams) {
     publicExponent: new Uint8Array([1, 0, 1]),
     modulusLength: 2048,
   };
-  const rootKeys = await crypto.subtle.generateKey(algorithm, false, ["sign", "verify"]) as Required<CryptoKeyPair>;
+  const rootKeys = await crypto.subtle.generateKey(rootAlg, false, ["sign", "verify"]) as Required<CryptoKeyPair>;
   const rootCert = await x509.X509CertificateGenerator.createSelfSigned({
     name: "CN=Test Root CA, O=Peculiar Ventures",
     keys: rootKeys,

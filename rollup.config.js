@@ -18,6 +18,12 @@ const virtualParams = {
   util: `const TextDecoder = globalThis.TextDecoder; const TextEncoder = globalThis.TextEncoder; export { TextDecoder, TextEncoder };`,
 };
 
+const outputPlugins = [];
+const minimize = true;
+if (minimize) {
+  outputPlugins.push(terser());
+}
+
 export default [
   {
     input: "src/sign.ts",
@@ -45,9 +51,7 @@ export default [
         globals: {
           "events": "globalThis",
         },
-        plugins: [
-          // terser(),
-        ]
+        plugins: outputPlugins,
       },
     ],
   },
@@ -74,9 +78,7 @@ export default [
         banner,
         file: "build/verify.js",
         format: "es",
-        plugins: [
-          // terser(),
-        ]
+        plugins: outputPlugins,
       },
     ],
   },
