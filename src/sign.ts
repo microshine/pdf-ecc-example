@@ -110,7 +110,7 @@ async function main() {
               new pdfDoc.ContentTypeAttribute(pdfDoc.CMSContentType.data),
               // new SigningTimeAttribute(new Date("2021-10-04")),
               new pdfDoc.MessageDigestAttribute(messageDigest),
-              await pdfDoc.SigningCertificateV2Attribute.create(hash, signingCert),
+              await pdfDoc.SigningCertificateV2Attribute.create("SHA-256", signingCert),
             ]
           });
 

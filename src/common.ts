@@ -3,9 +3,13 @@ import { AsnConvert } from "@peculiar/asn1-schema";
 import { AlgorithmIdentifier } from "@peculiar/asn1-x509";
 import { HashedAlgorithm } from "@peculiarventures/pdf-doc";
 
+const id_SHAKE128 = "2.16.840.1.101.3.4.2.11";
+const id_SHAKE256 = "2.16.840.1.101.3.4.2.12";
 const id_SHA3_256 = "2.16.840.1.101.3.4.2.8";
 const id_SHA3_384 = "2.16.840.1.101.3.4.2.9";
 const id_SHA3_512 = "2.16.840.1.101.3.4.2.10";
+const name_SHAKE128 = "SHAKE128";
+const name_SHAKE256 = "SHAKE256";
 const name_SHA3_256 = "SHA3-256";
 const name_SHA3_384 = "SHA3-384";
 const name_SHA3_512 = "SHA3-512";
@@ -76,6 +80,8 @@ function registerEcdsaSha3Algorithm(oid: string, hashAlgName: string) {
   });
 }
 
+registerSha3Algorithm(id_SHAKE128, name_SHAKE128);
+registerSha3Algorithm(id_SHAKE256, name_SHAKE256);
 registerSha3Algorithm(id_SHA3_256, name_SHA3_256);
 registerSha3Algorithm(id_SHA3_384, name_SHA3_384);
 registerSha3Algorithm(id_SHA3_512, name_SHA3_512);
