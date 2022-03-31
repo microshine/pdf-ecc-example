@@ -3,6 +3,7 @@ import * as pdfCore from "@peculiarventures/pdf-core";
 import * as pdfDoc from "@peculiarventures/pdf-doc";
 import { BufferSourceConverter, Convert } from "pvtsutils";
 import * as pkijs from "pkijs";
+import "./common";
 
 x509.cryptoProvider.set(crypto);
 pkijs.setEngine("PDF crypto", crypto, new pdfCore.PDFCryptoEngine({ crypto: crypto, subtle: crypto.subtle }));
@@ -13,7 +14,8 @@ const $generate = document.getElementById("generate") as HTMLInputElement;
 const $saveFile = document.getElementById("save_file") as HTMLAnchorElement;
 
 async function generateChain(algorithm: EcKeyGenParams & EcdsaParams) {
-  const leafKeys = await crypto.subtle.generateKey(algorithm, false, ["sign", "verify"]) as Required<CryptoKeyPair>;
+  //! NOTE Leaf certificate uses extractable key. It's required for case when SHA3 digest is needed
+  const leafKeys = await crypto.subtle.generateKey(algorithm, true, ["sign", "verify"]) as Required<CryptoKeyPair>;
   const rootAlg: RsaHashedKeyGenParams = {
     name: "RSASSA-PKCS1-v1_5",
     hash: "SHA-256",
@@ -75,8 +77,8 @@ async function main() {
       const namedCurve = $namedCurve.value;
 
       let algName = ["Ed25519", "Ed448"].includes(namedCurve)
-      ? "EdDSA"
-      : "ECDSA";
+        ? "EdDSA"
+        : "ECDSA";
 
       const chain = await generateChain({
         name: algName,
@@ -108,7 +110,7 @@ async function main() {
               new pdfDoc.ContentTypeAttribute(pdfDoc.CMSContentType.data),
               // new SigningTimeAttribute(new Date("2021-10-04")),
               new pdfDoc.MessageDigestAttribute(messageDigest),
-              await pdfDoc.SigningCertificateV2Attribute.create("SHA-256", signingCert),
+              await pdfDoc.SigningCertificateV2Attribute.create(hash, signingCert),
             ]
           });
 

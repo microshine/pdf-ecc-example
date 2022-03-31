@@ -2,6 +2,7 @@ import * as x509 from "@peculiar/x509";
 import * as pdfCore from "@peculiarventures/pdf-core";
 import * as pdfDoc from "@peculiarventures/pdf-doc";
 import * as pkijs from "pkijs";
+import "./common";
 
 x509.cryptoProvider.set(crypto);
 pkijs.setEngine("PDF crypto", crypto, new pdfCore.PDFCryptoEngine({ crypto: crypto, subtle: crypto.subtle }));
@@ -104,7 +105,7 @@ async function verify(file: BufferSource) {
       const signer = sig.signedData.signers[0];
       group("Algorithms");
       print("Digest mechanism:", signer.digestAlgorithm.name);
-      print("Signature mechanism:", signer.signatureAlgorithm.name);
+      print("Signature mechanism:", `${signer.signatureAlgorithm.name}${"hash" in signer.signatureAlgorithm ? ` with ${(signer.signatureAlgorithm as any).hash.name}` : ""}`);
       if (sig.signerCertificate) {
         if ("namedCurve" in sig.signerCertificate.publicKey.algorithm) {
           print("Named curve:", (sig.signerCertificate.publicKey.algorithm as any).namedCurve);
